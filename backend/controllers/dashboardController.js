@@ -46,9 +46,14 @@ exports.getDashboardData = async (req, res) => {
         // Fetch last 5 transactions (income + expense)
         const lastTransactions = [
             ...(await Income.find({ userId }).sort({ date: -1 }).limit(5)).map((txn) => ({
-                ...txn.toObject(),
+                _id: txn._id,
                 type: "income",
+                amount: txn.amount,
+                category: txn.category,
+                source: txn.source,
+                date: txn.date,
             })),
+
             ...(await Expense.find({ userId }).sort({ date: -1 }).limit(5)).map((txn) => ({
                 ...txn.toObject(),
                 type: "expense",
