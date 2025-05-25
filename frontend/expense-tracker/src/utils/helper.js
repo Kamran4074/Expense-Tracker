@@ -23,3 +23,17 @@ export const addThousandsSeparator = (num) => {
 
     return fractionalPart ? `${formattedInteger}.${fractionalPart}` : formattedInteger;
 };
+
+export const prepareExpenseBarChartData = (data = []) => {
+  const chartData = data.map((item) => {
+    const date = new Date(item?.date);
+    const month = date.toLocaleString("default", { month: "short" }); // e.g., "May"
+    return {
+      month, // for X-axis
+      amount: item?.amount || 0,
+      category: item?.category || "Unknown",
+    };
+  });
+
+  return chartData;
+};

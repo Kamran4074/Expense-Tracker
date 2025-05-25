@@ -32,6 +32,8 @@ const Home = () => {
         `${API_PATHS.DASHBOARD.GET_DATA}`
       );
       if (response.data) {
+        console.log("Dashboard data received:", response.data);
+        console.log("last30DaysExpense:", response.data.last30DaysExpense);
 
         setDashboardData(response.data);
       }
