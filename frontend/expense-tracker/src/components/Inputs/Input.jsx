@@ -6,7 +6,7 @@ const Input = ({ value, onChange, placeholder, label, type }) => {
 
   return (
     <div>
-      <label className="text-[13px] text-slate-800">{label}</label>
+      <label className="text-[13px] text-slate-100">{label}</label>
 
       <div className="input-box flex items-center border border-gray-300 px-2 py-1 rounded">
         <input

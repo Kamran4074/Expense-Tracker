@@ -3,7 +3,7 @@ import moment from "moment";
 import { LuArrowRight, LuUtensils } from "react-icons/lu"; // ✅ Import the icon
 import TransactionInfoCard from '../Cards/TransactionInfoCard';
 
-const RecentIncome = ({ transactions, onSeeMore }) => {
+const RecentTransactions = ({ transactions, onSeeMore }) => {
   return (
     <div className="card">
       <div className="flex items-center justify-between">
@@ -20,7 +20,12 @@ const RecentIncome = ({ transactions, onSeeMore }) => {
             key={item._id}
             title={item.source}
             icon={<LuUtensils />}  // ✅ Always use this icon
-            date={moment(item.date).format("Do MMM YYYY")}
+            date={
+              moment(new Date(item.date)).isValid()
+                ? moment(new Date(item.date)).format("Do MMM YYYY")
+                : "Invalid date"
+            }
+
             amount={item.amount}
             type="income"
             hideDeleteBtn
@@ -31,4 +36,4 @@ const RecentIncome = ({ transactions, onSeeMore }) => {
   );
 };
 
-export default RecentIncome;
+export default RecentTransactions;

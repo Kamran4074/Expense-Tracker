@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import DashboardLayout from '../../components/layouts/DashboardLayout';
 import { useUserAuth } from '../../hooks/useUserAuth';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { API_PATHS } from '../../utils/apiPaths';
 import axiosInstance from '../../utils/axiosInstance';
 import InfoCard from '../../components/Cards/InfoCard';
@@ -81,9 +82,10 @@ const Home = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
           <RecentTransactions
-            transactions={dashboardData?.recentTransactions}
-            onSeeMore={() => navigate("/expense")}
+            transactions={dashboardData?.recentTransactions?.filter(tx => tx.type === "income") || []}
+            onSeeMore={() => navigate("/income")}
           />
+
 
           <FinanceOverview
             totalBalance={dashboardData?.totalBalance || 0}
@@ -109,15 +111,15 @@ const Home = () => {
         </div>
 
         <RecentIncomeWithChart
-          data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) ||[]}
-          totalIncome={dashboardData?.totalIncome||0}
-        /> 
+          data={dashboardData?.last60DaysIncome?.transactions?.slice(0, 4) || []}
+          totalIncome={dashboardData?.totalIncome || 0}
+        />
 
         <RecentIncome
-         transactions={dashboardData?.last60DaysIncome?.transactions ||[]}
-         onSeeMore={(()=> navigate("/income"))}
+          transactions={dashboardData?.last60DaysIncome?.transactions || []}
+          onSeeMore={(() => navigate("/income"))}
         />
-         
+
       </div>
     </DashboardLayout>
   );
