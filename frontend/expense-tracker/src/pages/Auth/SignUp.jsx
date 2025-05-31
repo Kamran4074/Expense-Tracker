@@ -16,14 +16,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
-  const{updateUser}=useContext(UserContext);
+  const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
   // Handle SignUp Form Submit
   const handleSignUp = async (e) => {
     e.preventDefault();
-    
-    let profileImageUrl="";
+
+    let profileImageUrl = "";
     if (!fullName.trim()) {
       setError("Full Name is required.");
       return;
@@ -43,37 +43,37 @@ const SignUp = () => {
     console.log("Signing up:", { fullName, email, password });
 
     // SignUp API Call
-    try{
-
-      //Upload image if present
-      if(profilePic){
-        const imgUploadRes=await uploadImage(profilePic);
-        profileImageUrl=imgUploadRes.imageUrl||"";
+    try {
+      if (profilePic) {
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImageUrl = imgUploadRes.imageUrl || "";
       }
 
-      const response=await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+      console.log("📩 Sending signup request...");
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,
         password,
-        profileImageUrl
+        profileImageUrl,
       });
 
-      const {token,user}=response.data;
 
-      if(token){
-        localStorage.setItem("token",token);
+      const { token, user } = response.data;
+
+      if (token) {
+        localStorage.setItem("token", token);
         updateUser(user);
         navigate("/dashboard");
       }
     }
-    catch(error){
-      if(error.response&&error.response.data.message){
-        ServerRouter(error.response.data.message);
-      }
-      else{
+    catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
         setError("Something went wrong. Please try again.");
       }
     }
+
   };
 
   return (

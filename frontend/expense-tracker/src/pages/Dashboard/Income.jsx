@@ -8,8 +8,10 @@ import AddIncomeForm from "../../components/Income/AddIncomeForm";
 import toast from "react-hot-toast";
 import IncomeList from "../../components/Income/IncomeList";
 import DeleteAlert from "../../components/DeleteAlert";
+import { useUserAuth } from "../../hooks/useUserAuth";
 
 const Income = () => {
+  useUserAuth();
 
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -97,7 +99,7 @@ const Income = () => {
   try {
     await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
     toast.success("Income deleted successfully.");
-    fetchIncomeDetails(); // refresh the list
+    fetchIncomeDetails(); 
   } catch (error) {
     console.error("Delete error:", error.response?.data || error.message);
     toast.error("Failed to delete income.");
@@ -109,7 +111,28 @@ const Income = () => {
 
 
   // Handle download income details
-  const handleDownloadIncomeDetails = async () => { };
+  const handleDownloadIncomeDetails = async () => {
+    try {
+      const response = await axiosInstance.get(API_PATHS.INCOME.DOWNLOAD_INCOME, {
+        responseType: "blob",
+      });
+
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "income_details.xlsx");
+
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast.success("Download successfull.");
+    } catch (error) {
+      console.error("Download failed:", error);
+      toast.error("Failed to download file.");
+    }
+   };
 
   useEffect(() => {
     fetchIncomeDetails();
