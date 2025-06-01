@@ -11,6 +11,14 @@ import {
 import CustomTooltip from './CustomTooltip';
 import CustomLegend from './CustomLegend';
 
+const SOURCE_COLOR_MAP = {
+  Gambling: "#875CF5",
+  salary: "#FA2C37",
+  Trading: "#FF6900",
+  Other: "#4f39f6"
+};
+
+
 const CustomPieChart = ({
   data,
   label,
@@ -41,7 +49,7 @@ const CustomPieChart = ({
           fontSize="24"
           fontWeight="600"
         >
-          ${Number(totalAmount).toLocaleString()}
+          ${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </text>
       </>
     );

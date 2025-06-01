@@ -19,7 +19,7 @@ const RecentTransactions = ({ transactions, onSeeMore }) => {
           <TransactionInfoCard
             key={item._id}
             title={item.source}
-            icon={<LuUtensils />}  // ✅ Always use this icon
+            icon={<LuUtensils />} 
             date={
               moment(new Date(item.date)).isValid()
                 ? moment(new Date(item.date)).format("Do MMM YYYY")

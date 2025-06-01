@@ -31,7 +31,7 @@ const RecentIncomeWithChart = ({ data }) => {
                 <CustomPieChart
                     data={chartData}
                     label="Total Income"
-                    totalAmount={`$${!isNaN(totalIncome) ? totalIncome.toFixed(2) : '0.00'}`}
+                    totalAmount={!isNaN(totalIncome) ? totalIncome : 0}
                     showTextAnchor
                     colors={COLORS}
                 />
