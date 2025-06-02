@@ -31,7 +31,6 @@ const Income = () => {
     const response = await axiosInstance.get(API_PATHS.INCOME.GET_ALL_INCOME);
 
     if (response.data) {
-      // 🧼 Filter out bad entries with missing source/amount/date
       const cleanData = response.data.filter(item =>
         item &&
         item.source?.trim() &&
@@ -40,7 +39,7 @@ const Income = () => {
         item.date
       );
 
-      console.log("✅ Cleaned income data:", cleanData);
+      console.log(" Cleaned income data:", cleanData);
       setIncomeData(cleanData);
     }
   } catch (error) {
@@ -55,7 +54,6 @@ const Income = () => {
   const handleAddIncome = async (income) => {
     const { source, amount, date, icon } = income;
 
-    // Validation Checks
     if (!source.trim()) {
       toast.error("Source is required.");
       return;
