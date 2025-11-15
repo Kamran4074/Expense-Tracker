@@ -49,7 +49,7 @@ const SignUp = () => {
         profileImageUrl = imgUploadRes.imageUrl || "";
       }
 
-      console.log("📩 Sending signup request...");
+      // console.log(" Sending signup request...");
       const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER, {
         fullName,
         email,

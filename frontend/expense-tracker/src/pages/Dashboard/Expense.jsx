@@ -29,7 +29,7 @@ const Expense = () => {
 
     try {
       const response = await axiosInstance.get(API_PATHS.EXPENSE.GET_ALL_EXPENSE);
-      console.log("✅ API returned data:", response.data);
+      // console.log("API returned data:", response.data);
 
       if (response.data) {
         const cleanData = response.data.filter(item =>
@@ -125,8 +125,6 @@ const Expense = () => {
       toast.error("Failed to download file.");
     }
   };
-
-
 
 
   useEffect(() => {

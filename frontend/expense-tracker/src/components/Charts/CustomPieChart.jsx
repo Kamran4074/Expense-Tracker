@@ -49,7 +49,7 @@ const CustomPieChart = ({
           fontSize="24"
           fontWeight="600"
         >
-          ${totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+          ₹{totalAmount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </text>
       </>
     );
