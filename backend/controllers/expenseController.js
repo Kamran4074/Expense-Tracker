@@ -24,10 +24,10 @@ exports.addExpense = async (req, res) => {
         });
 
         await newExpense.save();
-        res.status(200).json(newExpense);
+        res.status(201).json(newExpense);
     }
     catch(error){
-        res.status(500).json({message: error});
+        res.status(500).json({message: error.message});
     }
 }
 

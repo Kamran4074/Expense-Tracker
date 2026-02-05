@@ -1,4 +1,4 @@
-export const BASE_URL="http://localhost:800";
+export const BASE_URL="http://localhost:5000";
 
 // utilis/apiPaths.js
 export const API_PATHS={

@@ -73,13 +73,13 @@ exports.getUserInfo = async (req, res) => {
         const user=await User.findById(req.user.id).select("-password");
 
         if(!user){
-            return res.status(200).json({message: "User not found"});
+            return res.status(404).json({message: "User not found"});
         }
         res.status(200).json(user);
     }
     catch(err){
         res
             .status(500)
-            .json({mesage: "Error Getting User Info",error:err.message});
+            .json({message: "Error Getting User Info",error:err.message});
     }
 };

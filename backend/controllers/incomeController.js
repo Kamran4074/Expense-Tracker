@@ -1,5 +1,5 @@
 const  xlsx=require('xlsx');
-const Income = require("../models/Income");
+const Income = require("../models/income");
 
 
 
@@ -24,10 +24,10 @@ exports.addIncome = async (req, res) => {
         });
 
         await newIncome.save();
-        res.status(200).json(newIncome);
+        res.status(201).json(newIncome);
     }
     catch(error){
-        res.status(500).json({message: error});
+        res.status(500).json({message: error.message});
     }
 }
 

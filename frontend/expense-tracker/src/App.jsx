@@ -23,10 +23,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Root />} />
             <Route path="/login" exact element={<Login />} />
-            <Route path="/SignUp" exact element={<SignUp />} />
+            <Route path="/signup" exact element={<SignUp />} />
             <Route path="/dashboard" exact element={<Home />} />
             <Route path="/income" exact element={<Income />} />
-            <Route path="/Expense" exact element={<Expense />} />
+            <Route path="/expense" exact element={<Expense />} />
           </Routes>
         </Router>
       </div>
@@ -35,7 +35,7 @@ const App = () => {
         toasterOptions={{
           className: "",
           style: {
-            fontSize: "'13px"
+            fontSize: "13px"
           },
         }}
       />

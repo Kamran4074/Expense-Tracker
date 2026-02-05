@@ -1,5 +1,29 @@
 {
+  "name": "smartexpense",
+  "version": "1.0.0",
+  "description": "A full-stack personal finance tracker with React and Node.js",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && cd backend && npm install && cd ../frontend/expense-tracker && npm install",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && npm run dev",
+    "client": "cd frontend/expense-tracker && npm run dev",
+    "build": "cd frontend/expense-tracker && npm run build"
+  },
+  "keywords": [
+    "expense-tracker",
+    "finance",
+    "react",
+    "nodejs",
+    "mongodb",
+    "full-stack"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
   "dependencies": {
     "emoji-picker-react": "^4.12.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
