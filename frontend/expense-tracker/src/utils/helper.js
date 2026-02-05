@@ -4,7 +4,7 @@ export const validateEmail = (email) => {
   return regex.test(email);
 };
 
-export const getinitials = (name) => {
+export const getInitials = (name) => {
   if (!name) return "";
 
   const words = name.split(" ");

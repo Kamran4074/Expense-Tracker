@@ -10,7 +10,7 @@ const axiosInstance=axios.create({
     },
 });
 
-// Request Inteceptor
+// Request Interceptor
 axiosInstance.interceptors.request.use(
     (config)=>{
         const accessToken=localStorage.getItem("token");
@@ -31,8 +31,8 @@ axiosInstance.interceptors.response.use(
     },
     (error)=>{
         //Handle common errors globally
-            if(error.code==="ECONNABORTED"){
-            console.error("Request timeout. Please try again.");
+        if(error.code==="ECONNABORTED"){
+            // Request timeout - handled by toast notification
             return Promise.reject(error);
         }
         if(error.response){
@@ -41,7 +41,7 @@ axiosInstance.interceptors.response.use(
                 window.location.href="/login";
             }
             else if(error.response.status===500){
-                console.error("Server error. Please try again later.");
+                // Server error - handled by toast notification
             }
         }
         return Promise.reject(error);

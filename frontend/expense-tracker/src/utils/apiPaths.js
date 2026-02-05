@@ -1,6 +1,8 @@
-export const BASE_URL="http://localhost:5000";
+import config from "../config/config";
 
-// utilis/apiPaths.js
+export const BASE_URL = config.API_BASE_URL;
+
+// utils/apiPaths.js
 export const API_PATHS={
     AUTH:{
         LOGIN:"/api/v1/auth/login",

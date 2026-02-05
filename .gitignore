@@ -17,6 +17,14 @@ yarn-error.log*
 .env.*.local
 backend/.env
 
+# Generated files
+*.xlsx
+*.csv
+
+# Upload directory contents (keep directory structure)
+backend/upload/*
+!backend/upload/.gitkeep
+
 # OS files
 .DS_Store
 Thumbs.db

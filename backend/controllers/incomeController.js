@@ -1,18 +1,33 @@
-const  xlsx=require('xlsx');
+const xlsx = require('xlsx');
 const Income = require("../models/income");
+const { HTTP_STATUS, ERRORS } = require("../constants");
 
-
-
-// Add Income Source
+/**
+ * Add a new income record
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} JSON response with created income or error
+ */
 exports.addIncome = async (req, res) => {
     const userId=req.user.id;
 
     try{
         const{icon,source,amount,date}=req.body;
 
-        //Validation: Check for missing fields
+        // Validation: Check for missing fields
         if(!source||!amount||!date){
-            return res.status(400).json({message:"All fields are required"});
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: ERRORS.REQUIRED_FIELDS});
+        }
+
+        // Validation: Check for valid amount
+        if(amount <= 0){
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: ERRORS.INVALID_AMOUNT});
+        }
+
+        // Validation: Check for valid date
+        const inputDate = new Date(date);
+        if(isNaN(inputDate.getTime())){
+            return res.status(HTTP_STATUS.BAD_REQUEST).json({message: ERRORS.INVALID_DATE});
         }
 
         const newIncome=new Income({
@@ -24,14 +39,19 @@ exports.addIncome = async (req, res) => {
         });
 
         await newIncome.save();
-        res.status(201).json(newIncome);
+        res.status(HTTP_STATUS.CREATED).json(newIncome);
     }
     catch(error){
-        res.status(500).json({message: error.message});
+        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({message: error.message});
     }
 }
 
-// Get all Income Source
+/**
+ * Get all income records for the authenticated user
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} JSON response with income array or error
+ */
 exports.getAllIncome = async (req, res) => {
     const userId=req.user.id;
 
@@ -43,7 +63,12 @@ exports.getAllIncome = async (req, res) => {
     }
 };
 
-// Delete Income Source
+/**
+ * Delete an income record by ID
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {Object} JSON response with success message or error
+ */
 exports.deleteIncome = async (req, res) => {
     try{
         const income = await Income.findById(req.params.id);
@@ -60,7 +85,12 @@ exports.deleteIncome = async (req, res) => {
     }
 };
 
-// Download Excel
+/**
+ * Download income data as Excel file
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @returns {File} Excel file download or error
+ */
 exports.downloadIncomeExcel = async (req, res) => {
     const userId=req.user.id;
 

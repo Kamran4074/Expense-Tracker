@@ -1,6 +1,6 @@
 const Income = require("../models/income");
 const Expense = require("../models/Expense");
-const { isValidObjectId, Types } = require("mongoose");
+const { Types } = require("mongoose");
 
 // Dashboard Data
 exports.getDashboardData = async (req, res) => {

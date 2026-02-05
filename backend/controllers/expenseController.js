@@ -10,9 +10,20 @@ exports.addExpense = async (req, res) => {
     try{
         const{icon,category,amount,date}=req.body;
 
-        //Validation: Check for missing fields
+        // Validation: Check for missing fields
         if(!category||!amount||!date){
             return res.status(400).json({message:"All fields are required"});
+        }
+
+        // Validation: Check for valid amount
+        if(amount <= 0){
+            return res.status(400).json({message:"Amount must be greater than 0"});
+        }
+
+        // Validation: Check for valid date
+        const inputDate = new Date(date);
+        if(isNaN(inputDate.getTime())){
+            return res.status(400).json({message:"Invalid date format"});
         }
 
         const newExpense=new Expense({
