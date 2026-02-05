@@ -95,8 +95,8 @@ SmartExpense/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/SmartExpense.git
-   cd SmartExpense
+   git clone https://github.com/Kamran4074/Expense-Tracker.git
+   cd Expense-Tracker
    ```
 
 2. **Install dependencies**
@@ -258,9 +258,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Your Name**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+**Kamran**
+- GitHub: [@Kamran4074](https://github.com/Kamran4074)
+- Email: kamran@example.com
 
 ## 🙏 Acknowledgments
 

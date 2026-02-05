@@ -18,7 +18,7 @@
     "mongodb",
     "full-stack"
   ],
-  "author": "Your Name",
+  "author": "Kamran",
   "license": "MIT",
   "dependencies": {
     "emoji-picker-react": "^4.12.2"
