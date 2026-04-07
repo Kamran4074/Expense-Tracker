@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+**/node_modules/
 
 # Build outputs
 dist/
@@ -11,19 +12,23 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Environment files
+# Environment files - NEVER commit these
 .env
 .env.local
 .env.*.local
 backend/.env
+frontend/expense-tracker/.env
 
 # Generated files
 *.xlsx
 *.csv
 
-# Upload directory contents (keep directory structure)
+# Upload directory contents (keep folder via .gitkeep)
 backend/upload/*
 !backend/upload/.gitkeep
+
+# Markdown files
+*.md
 
 # OS files
 .DS_Store
@@ -33,3 +38,4 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+*.swo

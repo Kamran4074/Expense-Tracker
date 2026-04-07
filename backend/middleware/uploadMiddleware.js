@@ -1,26 +1,21 @@
-const multer=require('multer');
-const path=require("path");
+const multer = require('multer');
 
-// Configure storage
-const storage=multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null,'upload/');
-    },
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        cb(null, file.fieldname + "-" + Date.now() + ext);
-    },
-});
+// Use memory storage for serverless compatibility (Vercel)
+const storage = multer.memoryStorage();
 
-// File filter
-const fileFilter=(req,file,cb)=>{
-    const allowedTypes=['image/jpeg','image/png','image/jpg'];
-    if(allowedTypes.includes(file.mimetype)){
-        cb(null,true);
-    }else{
-        cb(new Error('only .jpeg, .jpg and .png formats are allowed'),false);
+const fileFilter = (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+    if (allowedTypes.includes(file.mimetype)) {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .jpeg, .jpg and .png formats are allowed'), false);
     }
 };
 
-const upload =multer({storage,fileFilter});
-module.exports=upload;
+const upload = multer({
+    storage,
+    fileFilter,
+    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+});
+
+module.exports = upload;
