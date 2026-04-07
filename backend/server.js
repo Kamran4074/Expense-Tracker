@@ -16,6 +16,7 @@ app.use(
         origin: (origin, callback) => {
             if (!origin) return callback(null, true);
             if (origin.startsWith("http://localhost")) return callback(null, true);
+            if (origin.includes("vercel.app")) return callback(null, true);
             if (origin === process.env.CLIENT_URL) return callback(null, true);
             callback(new Error("Not allowed by CORS"));
         },
