@@ -6,6 +6,7 @@ import {
     LuTrendingUp,
     LuTrendingDown,
     LuTrash2,
+    LuPencil,
 } from "react-icons/lu";
 const TransactionInfoCard = ({
     title,
@@ -15,6 +16,7 @@ const TransactionInfoCard = ({
     type,
     hideDeleteBtn,
     onDelete,
+    onEdit,
 }) => {
     const getAmountStyles = () =>
         type == "income" ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500";
@@ -32,15 +34,19 @@ const TransactionInfoCard = ({
         <div className="flex-1 flex items-center justify-between">
             <div>
                 <p className="text-sm text-gray-700 font-medium">{title}</p>
-                {/* <p className="text-xs text-gray-400 mt-1">{moment(date).format("Do MMM YYYY, h:mm A")}</p> */}
                 <p className="text-xs text-gray-400 mt-1">
                     {moment(date).isValid() ? moment(date).format("Do MMM YYYY, h:mm A") : "Invalid date"}
                 </p>
-
-
             </div>
 
             <div className="flex items-center gap-2">
+                {onEdit && (
+                    <button className="text-gray-400 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        onClick={onEdit}>
+                        <LuPencil size={16} />
+                    </button>
+                )}
+
                 {!hideDeleteBtn && (
                     <button className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
                         onClick={onDelete}>

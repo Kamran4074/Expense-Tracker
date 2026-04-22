@@ -54,6 +54,41 @@ exports.getAllExpense = async (req, res) => {
     }
 };
 
+// Update Expense
+exports.updateExpense = async (req, res) => {
+    try {
+        const expense = await Expense.findById(req.params.id);
+
+        if (!expense) {
+            return res.status(404).json({ message: "Expense not found" });
+        }
+
+        // Ensure user owns this expense
+        if (expense.userId.toString() !== req.user.id) {
+            return res.status(403).json({ message: "Not authorized" });
+        }
+
+        const { icon, category, amount, date } = req.body;
+
+        if (!category || !amount || !date) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        if (amount <= 0) {
+            return res.status(400).json({ message: "Amount must be greater than 0" });
+        }
+
+        expense.icon = icon || expense.icon;
+        expense.category = category;
+        expense.amount = amount;
+        expense.date = new Date(date);
+
+        await expense.save();
+        res.json(expense);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
 // Delete Expense Source
 exports.deleteExpense = async (req, res) => {
     try{
